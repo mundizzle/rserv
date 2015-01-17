@@ -1,6 +1,6 @@
 {
   "name": "rserv",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Static server with auto reload",
   "main": "server.js",
   "scripts": {
