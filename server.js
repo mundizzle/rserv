@@ -1,6 +1,6 @@
+var fs = require('fs');
 var http = require('http');
 var path = require('path');
-var fs = require('fs-extra');
 
 var _ = require('lodash');
 var chokidar = require('chokidar');
