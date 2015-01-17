@@ -37,7 +37,7 @@ module.exports = function(){
     })).
     use(require('serve-static')(options.root))).listen(options.port);
 
-  chokidar.watch(options.watch, {
+  chokidar.watch(options.root, {
     ignoreInitial: true,
     persistent: true,
     ignored: /[\/\\]\./
