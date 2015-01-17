@@ -1,6 +1,6 @@
 {
   "name": "rserv",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Static server with auto reload",
   "main": "server.js",
   "scripts": {
@@ -27,6 +27,7 @@
     "debounce": "^1.0.0",
     "lodash": "^2.4.1",
     "minimist": "^1.1.0",
-    "serve-static": "^1.8.0"
+    "serve-static": "^1.8.0",
+    "socket.io": "^1.2.1"
   }
 }
