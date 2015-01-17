@@ -1,0 +1,12 @@
+<script src="http://localhost:<%= socket %>/socket.io/socket.io.js"></script>
+<script>
+(function(){
+  'use strict';
+  if(window.io){
+    window.socket = new io.connect('http://localhost:<%= socket %>');
+    socket.on('reload', function(){
+      location.reload();
+    });
+  }
+})();
+</script>
