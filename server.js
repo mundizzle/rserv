@@ -13,11 +13,11 @@ module.exports = function(){
 
   var args = require('minimist')(process.argv.slice(2));
 
-  var options = _.extend(args, {
+  var options = _.extend({
     port: 8080,
     socket: 1337,
     root: '.'
-  });
+  }, args);
 
   var client = _.template(fs.readFileSync(path.join(__dirname, 'client.html'), 'utf-8'), {
     socket: options.socket
