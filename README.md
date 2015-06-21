@@ -1,17 +1,17 @@
 # rserv
 
-Static server with auto reload
+Minimal static file server with automating browser reload
 
 ## Install
 
 ### Global
 ```sh
-sudo npm install -g rserv
+sudo npm i -g rserv
 ```
 
 ### Local
 ```sh
-npm install --save-dev rserv
+npm i rserv --save-dev
 ```
 
 ## Usage
@@ -30,42 +30,37 @@ npm install --save-dev rserv
 npm run start
 ```
 
-### Programmatic
+### Node
 ```js
 var rserv = require('rserv');
 
 rserv({
-  "root": "dest"
-  "port": "8080"
-  "socket": "1337"
+  root: 'dest',
+  port: '8080'
 });
 ```
 
-### Command Line
+### Command Line (Must be installed gobally)
 
 ```sh
 rserv
 ```
 
-## options
+## Options
+
 ```
--root   root folder
--port   file server port
--socket web sockets port
+rserv --help
+
+
+Usage: rserv [options]
+
+Options:
+
+  -h, --help         output usage information
+  -V, --version      output the version number
+  -p, --port [type]  port [3000]
+  -r, --root [type]  root directory [.] (current directory)
+
 ```
 
-##### defaults
-```
--root   . (current directory)
--port   8080
--socket 1337
-```
 
-##### config via `package.json`
-```json
-"rserv": {
-  "root": "dest"
-  "port": "8080"
-  "socket": "1337"
-}
-```
