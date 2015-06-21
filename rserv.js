@@ -7,25 +7,27 @@ var packageJSON = require('./package.json');
 var express = require('express');
 var compression = require('compression');
 var serveIndex = require('serve-index');
-var socketIO = require('socket.io');
+var WebSocket = require('faye-websocket');
 var chokidar = require('chokidar');
 var rewrite = require('connect-body-rewrite');
 var commander = require('commander');
 
+var ws;
+
 module.exports = function(){
 
+  var default_timeout = 250;
   var default_port = 3000;
   var default_root = '.';
 
   commander
     .version(packageJSON.version)
+    .option('-t, --timeout [type]', 'timeout [' + default_timeout + ']', default_timeout)
     .option('-p, --port [type]', 'port [' + default_port + ']', default_port)
     .option('-r, --root [type]', 'root directory [' + default_root + '] (current directory)', default_root)
     .parse(process.argv);
 
-  var client = _.template(fs.readFileSync(path.join(__dirname, 'client.html'), 'utf-8'))({
-    port: commander.port
-  });
+  var client = fs.readFileSync(path.join(__dirname, 'client.html'), 'utf-8');
 
   var server = http.Server(express()
     .use('/', serveIndex(commander.root, {'icons': true}))
@@ -40,17 +42,21 @@ module.exports = function(){
     .use(express.static(commander.root))
     .use(compression()));
 
-  var io = socketIO(server);
-
-  chokidar.watch(commander.root, {ignored: /[\/\\]\./}).on('all', _.debounce(function(event, path) {
-    console.log(event, path);
-    io.emit('reload');
-  }, 250));
+  server.addListener('upgrade', function(request, socket, head) {
+    ws = new WebSocket(request, socket, head);
+  });
 
   server.listen(commander.port);
+
+  chokidar.watch(commander.root, {ignored: /[\/\\]\./}).on('all', _.debounce(function(event, path) {
+    if(!ws) return;
+    console.log(event, path);
+    ws.send('reload');
+  }, commander.timeout));
 
   console.log('rserv started...');
   console.log((commander.root === '.') ? __dirname : __dirname + '/' + commander.root);
   console.log('http://localhost:' + commander.port);
+  console.log('timeout:' + commander.timeout);
 
 };

@@ -51,15 +51,15 @@ rserv
 ```
 rserv --help
 
-
 Usage: rserv [options]
 
 Options:
 
-  -h, --help         output usage information
-  -V, --version      output the version number
-  -p, --port [type]  port [3000]
-  -r, --root [type]  root directory [.] (current directory)
+  -h, --help            output usage information
+  -V, --version         output the version number
+  -t, --timeout [type]  timeout [250]
+  -p, --port [type]     port [3000]
+  -r, --root [type]     root directory [.] (current directory)
 
 ```
 

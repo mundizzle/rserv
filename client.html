@@ -1,9 +1,17 @@
-<script src="/socket.io/socket.io.js"></script>
 <script>
 (function(){
-  var socket = io.connect('http://localhost:<%= port %>');
-  socket.on('reload', function(){
-    location.reload();
-  });
+
+  var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+  var address = protocol + window.location.host + window.location.pathname + '/ws';
+  var socket = new WebSocket(address);
+
+  socket.onmessage = function(message){
+    if(message.data === 'reload'){
+      window.location.reload();
+    }
+  };
+
+  console.log('rserv started...');
+
 })();
 </script>
