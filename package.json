@@ -1,8 +1,8 @@
 {
   "name": "rserv",
-  "version": "1.0.7",
-  "description": "Static server with auto reload",
-  "main": "server.js",
+  "version": "1.1.0",
+  "description": "Dev server with live reload",
+  "main": "rserv.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -21,13 +21,13 @@
   "homepage": "https://github.com/mundizzle/rserv",
   "dependencies": {
     "chokidar": "^0.12.6",
-    "compression": "^1.3.0",
-    "connect": "^3.3.4",
+    "commander": "^2.8.1",
+    "compression": "^1.5.0",
     "connect-body-rewrite": "0.0.4",
-    "debounce": "^1.0.0",
-    "lodash": "^2.4.1",
-    "minimist": "^1.1.0",
-    "serve-static": "^1.8.0",
-    "socket.io": "^1.2.1"
+    "express": "^4.12.4",
+    "lodash": "^3.9.3",
+    "minimist": "^1.1.1",
+    "serve-index": "^1.7.0",
+    "socket.io": "^1.3.5"
   }
 }
