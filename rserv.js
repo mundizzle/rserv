@@ -14,9 +14,9 @@ var commander = require('commander');
 
 var ws;
 
-module.exports = function(){
+module.exports = function (){
 
-  var default_timeout = 250;
+  var default_timeout = 0;
   var default_port = 3000;
   var default_root = '.';
 
@@ -30,7 +30,6 @@ module.exports = function(){
   var client = fs.readFileSync(path.join(__dirname, 'client.html'), 'utf-8');
 
   var server = http.Server(express()
-    .use('/', serveIndex(commander.root, {'icons': true}))
     .use(rewrite({
       accept: function (res) {
         return res.getHeader('content-type').match(/text\/html/);
@@ -40,16 +39,17 @@ module.exports = function(){
       }
     }))
     .use(express.static(commander.root))
+    .use('/', serveIndex(commander.root, {'icons': true}))
     .use(compression()));
 
-  server.addListener('upgrade', function(request, socket, head) {
+  server.addListener('upgrade', function (request, socket, head) {
     ws = new WebSocket(request, socket, head);
   });
 
   server.listen(commander.port);
 
-  chokidar.watch(commander.root, {ignored: /[\/\\]\./}).on('all', _.debounce(function(event, path) {
-    if(!ws) return;
+  chokidar.watch(commander.root, {ignored: /[\/\\]\./}).on('all', _.debounce(function (event, path) {
+    if (!ws) return;
     console.log(event, path);
     ws.send('reload');
   }, commander.timeout));
